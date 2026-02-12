@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dla mojej Walentynki ❤️</title>
+    <style>
+        /* --- STYLIZACJA (Wygląd) --- */
+        :root {
+            --primary-color: #ff4d6d;
+            --bg-color: #fff0f3;
+            --text-color: #590d22;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff8fa3, #ff4d6d);
+            color: white;
+            padding: 60px 20px;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Licznik */
+        .counter-box {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        #timer {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* Powody */
+        .reasons-list {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+        .reasons-list li {
+            background: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* Galeria */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Przycisk Miłości */
+        .love-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 40px;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+        }
+        .love-btn:hover {
+            background-color: #c9184a;
+            transform: scale(1.1);
+        }
+        .love-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Animacja serduszek */
+        .heart {
+            position: fixed;
+            font-size: 20px;
+            color: var(--primary-color);
+            animation: floatUp 4s linear forwards;
+            pointer-events: none;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Dla Kochanej [IMIĘ] ❤️</h1>
+        <p>Moja Walentynka</p>
+    </header>
+
+    <div class="container">
+        
+        <div class="counter-box">
+            <h2>Jesteśmy razem już:</h2>
+            <div id="timer">Liczenie...</div>
+            <p>...i każda chwila jest wyjątkowa.</p>
+        </div>
+
+        <h2>14 Powodów, dla których Cię kocham</h2>
+        <ul class="reasons-list">
+            <li>1. Bo robisz najlepszą herbatę na świecie.</li>
+            <li>2. Bo Twój uśmiech poprawia mi każdy dzień.</li>
+            <li>3. Bo zawsze mnie wspierasz.</li>
+            <li>4. Bo masz cudowne oczy.</li>
+            <li>5. Bo śmiejesz się z moich suchych żartów.</li>
+            <li>14. Po prostu za to, że JESTEŚ.</li>
+        </ul>
+
+        <h2>Nasze Wspomnienia</h2>
+        <p>Kilka chwil, które uwielbiam:</p>
+        <div class="gallery">
+            <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?auto=format&fit=crop&q=80&w=300" alt="Zdjęcie 1">
+            <img src="https://images.unsplash.com/photo-1522673607200-1645062cd958?auto=format&fit=crop&q=80&w=300" alt="Zdjęcie 2">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=300" alt="Zdjęcie 3">
+        </div>
+
+        <button class="love-btn" onclick="createHearts()">Kliknij po trochę miłości! 🎁</button>
+
+    </div>
+
+    <script>
+        // --- KONFIGURACJA (JavaScript) ---
+
+        // 1. Ustaw datę początku związku (Rok, Miesiąc-1, Dzień)
+        // Uwaga: Miesiące liczymy od 0 (Styczeń=0, Luty=1, Marzec=2 itd.)
+        // Przykład: 14 Lutego 2022 to: new Date(2022, 1, 14)
+        const startDate = new Date(2022, 1, 14); 
+
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById("timer").innerText = 
+                `${days} dni, ${hours} godzin, ${minutes} minut i ${seconds} sekund`;
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // 2. Funkcja do serduszek
+        function createHearts() {
+            const container = document.body;
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement("div");
+                heart.classList.add("heart");
+                heart.innerHTML = "❤️";
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+                heart.style.fontSize = Math.random() * 20 + 20 + "px";
+                container.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }
+        }
+    </script>
+</body>
+</html>
